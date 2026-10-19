@@ -6,6 +6,7 @@ import com.javanauta.user.infrastrucure.entity.User;
 import com.javanauta.user.infrastrucure.exceptions.ConflictException;
 import com.javanauta.user.infrastrucure.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -34,6 +35,15 @@ public class UserService {
 
     public boolean verifyEmailExists(String email) {
         return userRepository.existsByEmail(email);
+    }
+
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("Email not found: " + email));
+    }
+
+    public void deleteUserByEmail(String email) {
+        userRepository.deleteByEmail(email);
     }
 
 }
