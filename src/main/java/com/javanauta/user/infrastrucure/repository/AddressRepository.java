@@ -1,6 +1,6 @@
 package com.javanauta.user.infrastrucure.repository;
 
-import com.javanauta.spring.infrastructure.entity.Address;
+import com.javanauta.user.infrastrucure.entity.Address;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
