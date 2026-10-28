@@ -8,6 +8,7 @@ import com.javanauta.user.infrastrucure.entity.Phone;
 import com.javanauta.user.infrastrucure.entity.User;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -100,6 +101,21 @@ public class UserConverter {
         return PhoneDTO.builder()
                 .number(phone.getNumber())
                 .ddd(phone.getDdd())
+                .build();
+    }
+
+    public User updateUser(UserDTO userDTO, User userEntity) {
+        return User.builder()
+                .id(userEntity.getId())
+                .name(userDTO.getName() != null ? userDTO.getName() : userEntity.getName())
+                .password(userDTO.getPassword() != null ? userDTO.getPassword() : userEntity.getPassword())
+                .email(userDTO.getEmail() != null ? userDTO.getEmail() : userEntity.getEmail())
+                .addresses(userDTO.getAddresses() != null
+                        ? toAddressList(userDTO.getAddresses())
+                        : new ArrayList<>(userEntity.getAddresses()))
+                .phones(userDTO.getPhones() != null
+                        ? toPhonesList(userDTO.getPhones())
+                        : new ArrayList<>(userEntity.getPhones()))
                 .build();
     }
 }
