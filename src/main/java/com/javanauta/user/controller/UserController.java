@@ -1,6 +1,8 @@
 package com.javanauta.user.controller;
 
 import com.javanauta.user.business.UserService;
+import com.javanauta.user.business.dto.AddressDTO;
+import com.javanauta.user.business.dto.PhoneDTO;
 import com.javanauta.user.business.dto.UserDTO;
 import com.javanauta.user.infrastrucure.entity.User;
 import com.javanauta.user.infrastrucure.security.JwtUtil;
@@ -35,7 +37,7 @@ public class UserController {
     }
 
     @GetMapping
-    public ResponseEntity<User> searchUserByEmail(@RequestParam("email") String email) {
+    public ResponseEntity<UserDTO> searchUserByEmail(@RequestParam("email") String email) {
         return ResponseEntity.ok(userService.findByEmail(email));
     }
 
@@ -48,6 +50,18 @@ public class UserController {
     @PutMapping
     public ResponseEntity<UserDTO> updateUserData(@RequestBody UserDTO userDTO, @RequestHeader("Authorization") String token) {
         return ResponseEntity.ok(userService.updateUserData(token, userDTO));
+    }
+
+    @PutMapping("/address")
+    public ResponseEntity<AddressDTO> updateAddress(@RequestBody AddressDTO addressDTO,
+                                                    @RequestParam("id") Long addressId) {
+        return ResponseEntity.ok(userService.updateAddress(addressId, addressDTO));
+    }
+
+    @PutMapping("/phone")
+    public ResponseEntity<PhoneDTO> updatePhone(@RequestBody PhoneDTO phoneDTO,
+                                                  @RequestParam("id") Long phoneId) {
+        return ResponseEntity.ok(userService.updatePhone(phoneId, phoneDTO));
     }
 
 }
