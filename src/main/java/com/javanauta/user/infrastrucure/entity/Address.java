@@ -34,4 +34,7 @@ public class Address {
     @Column(name = "postal_code", length = 9)
     private String postal_code;
 
+    @Column(name = "user_id")
+    private Long user_id;
+
 }
